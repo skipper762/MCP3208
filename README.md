@@ -1,5 +1,7 @@
 MCP3208
 =======
+Library forked from : and updated to support multiple SPI buses 
+
 
 Arduino library for MCP3208 8 channel, 12 bit, ADC chip
 
@@ -13,12 +15,18 @@ DSPI object to use a different SPI bus than the default:
 
 Arduino or chipKIT:
 
-    MCP3208 myADC(10);
+    `MCP3208 myADC(10);`
+
+
+Arduino Only:
+	`MCP3208 myADC(10,SPI);`
+For use with chips with multiple SPI buses.
+	
 
 chipKIT only:
 
-    DSPI1 mySPI;
-    MCP3208 myADC(&mySPI, 10);
+    `DSPI1 mySPI;`
+    `MCP3208 myADC(&mySPI, 10);`
 
 You can also miss out all parameters and the default chip select pin
 of 10 will be used.
@@ -28,17 +36,20 @@ normal linear analog reading (as the on-board ADC on Arduino and chipKIT
 boards provides), and also differential reading; that is the difference
 between the voltages applied to two adjacent channels.
 
+To start the ADC call the begin method in the setup of your code
+	`myADC.begin();`
+
 To do a normal straight reading use the analogRead() member function of
 the MCP3208 object.  For instance, to read from channel 3:
 
-    int myValue = myADC.analogRead(3);
+    `int myValue = myADC.analogRead(3);`
 
 For differential reading channels are numbered 0 to 3 instead of 0 to 7
 and form the single-ended pairs 0+1, 2+3, 4+5 and 6+7. The analogReadDif()
 member function is used to read a differential value, so to read the
 voltage difference between inputs 4 and 5, you would use:
 
-    int myValue = myADC.analogReadDif(2);
+    `int myValue = myADC.analogReadDif(2);`
 
 Differential reading is done in either one or two stages depending on the
 voltages applied.  If the voltage difference is positive then the channels

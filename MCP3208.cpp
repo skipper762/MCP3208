@@ -37,7 +37,7 @@ void MCP3208::begin() {
 #ifdef __PIC32MX__
     _spi->begin();
 #else
-    SPI.begin();
+    _spi->begin();
 #endif
 }
 
@@ -46,7 +46,7 @@ uint8_t MCP3208::spiTransfer(uint8_t i) {
 #ifdef __PIC32MX__
     d = _spi->transfer(i);
 #else
-    d = SPI.transfer(i);
+    d = _spi->transfer(i);
 #endif
     return d;
 }

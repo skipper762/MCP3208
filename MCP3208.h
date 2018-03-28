@@ -51,6 +51,8 @@ class MCP3208 {
         uint8_t _cs;
 #ifdef __PIC32MX__
         DSPI *_spi;
+#else 
+	SPIClass *_spi;
 #endif
         uint8_t spiTransfer(uint8_t);
 
@@ -63,8 +65,9 @@ class MCP3208 {
         MCP3208(DSPI *dspi) : _spi(dspi), _cs(10) {}
         MCP3208(DSPI *dspi, uint8_t cs) : _spi(dspi), _cs(cs) {}
 #else
-        MCP3208() : _cs(10) {}
-        MCP3208(uint8_t cs) : _cs(cs) {}
+        MCP3208() : _cs(10),  _spi(&SPI) {}
+        MCP3208(uint8_t cs) : _cs(cs), _spi(&SPI) {}
+	MCP3208(uint8_t cs, SPIClass &SPI_BUS) : _cs(cs), _spi(&SPI_BUS){}
 #endif
     
         void begin();

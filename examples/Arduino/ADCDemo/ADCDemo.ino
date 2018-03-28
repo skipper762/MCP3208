@@ -1,6 +1,6 @@
 #include <MCP3208.h>
 #include <SPI.h>
-MCP3208 adc(10);
+MCP3208 adc(10,SPI);
 
 void setup() {
 	adc.begin();
